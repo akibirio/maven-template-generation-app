@@ -19,7 +19,7 @@ pipeline {
         stage('Build and Test') {
             steps {
                 // Build your Spring Boot application and run tests
-                sh 'mvn -X clean install'
+                sh 'mvn clean package'
             }
         }
 

@@ -1,7 +1,7 @@
 # Use the official OpenJDK 17 image as the base image
 # FROM adoptopenjdk:17-jdk-hotspot
 
-FROM adoptium/temurin:17-jre-hotspot
+FROM openjdk:17-alpine
 
 # Set the working directory inside the container
 WORKDIR /app
