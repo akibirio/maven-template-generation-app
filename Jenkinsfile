@@ -4,7 +4,9 @@ pipeline {
     environment{
         DOCKER_CREDENTIALS = credentials('docker-credentials-id')
     }
-   
+    tools{
+        maven "M3"
+    }
 
     stages {
         stage('Checkout') {
