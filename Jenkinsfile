@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment{
-        DOCKER_CREDENTIALS = credentials('docker-credentials-id')
+       // DOCKER_CREDENTIALS = credentials('docker-credentials-id')
     }
     tools{
         maven "M3"
@@ -36,7 +36,7 @@ pipeline {
             steps {
                 // Push the Docker image to your Docker registry (e.g., Docker Hub)
                 script {
-                    withDockerRegistry([credentialsId: DOCKER_CREDENTIALS, url: 'https://index.docker.io/v1/']) {
+                    withDockerRegistry([credentialsId: "docker-credentials-id", url: 'https://index.docker.io/v1/']) {
                         docker.image("akibirio/maven-template-generator:v1-latest").push()
                     }
                 }
