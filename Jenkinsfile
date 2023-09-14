@@ -1,6 +1,9 @@
 pipeline {
     agent any
-    
+
+    environment{
+        DOCKER_CREDENTIALS = credentials(docker-credentials-id)
+    }
     tools{
         maven "M3"
     }
@@ -24,28 +27,21 @@ pipeline {
             steps {
                 // Build a Docker image and tag it with the specified name and version
                 script {
-                    docker.withServer('https://hub.docker.com/repository/docker/akibirio/maven-template-generator/') {
-                        docker.withRegistry('https://hub.docker.com/repository/docker/akibirio/maven-template-generator/', 'docker-credentials-id') {
-                            // Disable Docker TLS verification
-                            docker.image("mavenTemplateGen:v1-latest").withRun('--insecure')
-                        }
-                    }
-
-                    docker.build("mavenTemplateGen:v1-latest")
+                    sh 'docker build -t akibirio/mavenTemplateGen:v1-latest .'
                 }
             }
         }
 
-        stage('Deploy to Docker Registry') {
-            steps {
-                // Push the Docker image to your Docker registry (e.g., Docker Hub)
-                script {
-                    docker.withRegistry('https://hub.docker.com/repository/docker/akibirio/maven-template-generator/', 'docker-credentials-id') {
-                        docker.image("mavenTemplateGen:v1-latest").push()
-                    }
-                }
-            }
-        }
+        // stage('Deploy to Docker Registry') {
+        //     steps {
+        //         // Push the Docker image to your Docker registry (e.g., Docker Hub)
+        //         script {
+        //             docker.withRegistry('https://hub.docker.com/', 'docker-credentials-id') {
+        //                 docker.image("mavenTemplateGen:v1-latest").push()
+        //             }
+        //         }
+        //     }
+        // }
 
         stage('Deploy to Kubernetes (Optional)') {
             when {
