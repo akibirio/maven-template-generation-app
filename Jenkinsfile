@@ -27,7 +27,7 @@ pipeline {
             steps {
                 // Build a Docker image and tag it with the specified name and version
                 script {
-                    docker.build("maventemplategen:v1-latest")
+                    docker.build("akibirio/maven-template-generator:v1-latest")
                 }
             }
         }
@@ -37,7 +37,7 @@ pipeline {
                 // Push the Docker image to your Docker registry (e.g., Docker Hub)
                 script {
                     docker.withRegistry('https://hub.docker.com/', 'docker-credentials-id') {
-                        docker.image("mavenTemplateGen:v1-latest").push()
+                        docker.image("akibirio/maven-template-generator:v1-latest").push()
                     }
                 }
             }
