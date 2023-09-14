@@ -47,3 +47,6 @@ This project is licensed under the MIT License - see the [MIT](https://chooseali
 
 - This project was created using Spring Boot.
 - Special thanks to the Spring community for their contributions to open-source software.
+
+### Authors
+- [Ayub G. Kibirio](https://github.com/akibirio)
