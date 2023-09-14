@@ -27,7 +27,7 @@ pipeline {
             steps {
                 // Build a Docker image and tag it with the specified name and version
                 script {
-                    docker.build("mavenTemplateGen:v1-latest")
+                    docker.build("maventemplategen:v1-latest")
                 }
             }
         }
