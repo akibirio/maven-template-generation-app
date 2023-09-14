@@ -51,7 +51,8 @@ pipeline {
             steps {
                 // Deploy the Docker image to Kubernetes (K8s) cluster
                 // You'll need K8s configuration and tools installed
-                sh 'kubectl apply -f k8s-deployment.yaml'
+                //sh 'kubectl apply -f k8s-deployment.yaml'
+                sh 'echo deploying to Kubernetes Cluster'
             }
         }
     }
