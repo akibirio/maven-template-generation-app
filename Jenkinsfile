@@ -1,7 +1,6 @@
 pipeline {
-    agent {
-        dockerfile true
-    }
+    agent any
+    
     tools{
         maven "M3"
     }
@@ -25,6 +24,13 @@ pipeline {
             steps {
                 // Build a Docker image and tag it with the specified name and version
                 script {
+                    docker.withServer('https://hub.docker.com/') {
+                        docker.withRegistry('https://hub.docker.com/', 'docker-credentials-id') {
+                            // Disable Docker TLS verification
+                            docker.image("mavenTemplateGen:v1-latest").withRun('--insecure')
+                        }
+                    }
+
                     docker.build("mavenTemplateGen:v1-latest")
                 }
             }
