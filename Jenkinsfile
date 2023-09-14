@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment{
-        DOCKER_CREDENTIALS = credentials(docker-credentials-id)
+        DOCKER_CREDENTIALS = credentials('docker-credentials-id')
     }
     tools{
         maven "M3"
