@@ -3,6 +3,8 @@ pipeline {
 
     environment{
         DOCKER_CREDENTIALS = credentials('docker-credentials-id')
+        registry = "akibirio/maven-template-generator"
+        dockerImage = ''
     }
     tools{
         maven "M3"
@@ -27,7 +29,7 @@ pipeline {
             steps {
                 // Build a Docker image and tag it with the specified name and version
                 script {
-                    docker.build("akibirio/maven-template-generator:v1-latest")
+                    dockerImage = docker.build("akibirio/maven-template-generator:v1-latest")
                 }
             }
         }
@@ -36,8 +38,9 @@ pipeline {
             steps {
                 // Push the Docker image to your Docker registry (e.g., Docker Hub)
                 script {
-                    docker.withRegistry('https://hub.docker.com/', 'docker-credentials-id') {
-                        docker.image("akibirio/maven-template-generator:v1-latest").push()
+                    docker.withRegistry('', DOCKER_CREDENTIALS) {
+                        //docker.image("akibirio/maven-template-generator:v1-latest").push()
+                        dockerImage.push()
                     }
                 }
             }
