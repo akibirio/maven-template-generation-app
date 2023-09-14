@@ -24,8 +24,8 @@ pipeline {
             steps {
                 // Build a Docker image and tag it with the specified name and version
                 script {
-                    docker.withServer('https://hub.docker.com/') {
-                        docker.withRegistry('https://hub.docker.com/', 'docker-credentials-id') {
+                    docker.withServer('https://hub.docker.com/repository/docker/akibirio/maven-template-generator/') {
+                        docker.withRegistry('https://hub.docker.com/repository/docker/akibirio/maven-template-generator/', 'docker-credentials-id') {
                             // Disable Docker TLS verification
                             docker.image("mavenTemplateGen:v1-latest").withRun('--insecure')
                         }
@@ -40,7 +40,7 @@ pipeline {
             steps {
                 // Push the Docker image to your Docker registry (e.g., Docker Hub)
                 script {
-                    docker.withRegistry('https://hub.docker.com/', 'docker-credentials-id') {
+                    docker.withRegistry('https://hub.docker.com/repository/docker/akibirio/maven-template-generator/', 'docker-credentials-id') {
                         docker.image("mavenTemplateGen:v1-latest").push()
                     }
                 }
